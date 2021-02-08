@@ -1,33 +1,61 @@
-"Plugins
+" ###############################################################################
+" PLUGINS
+" ###############################################################################
+
+set nocompatible
 call plug#begin()
 
-Plug 'valloric/youcompleteme'
-Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-fugitive'
+	Plug 'joshdick/onedark.vim'		" Theme
+	Plug 'valloric/youcompleteme'		" Completion
+	Plug 'itchyny/lightline.vim'		" Status Bar
+	Plug 'tpope/vim-fugitive'		" Git Support
 
 call plug#end()
 
-" lightline geral
+" ###############################################################################
+" LIGHTLINE 
+" ###############################################################################
+
+
+" general
 set laststatus=2
 set noshowmode
 
-" lightline statusbar components
+" status bar components
 let g:lightline = {
-\ 'colorscheme': 'wombat',
-\ 'active' : {
-\ 'left' :[ ['mode' , 'paste'] , ['gitbranch' , 'readonly' , 'modified' , 'filename' ] ] , 
-\ 'right' : [ ['lineinfo' ] , ['percent'], [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ] } ,
-\ 'component_function' :{'gitbranch': 'FugitiveStatusline'},
-\ 'component' : { 'charvaluehex' : '0x%B' },
-\ }
+	\ 'colorscheme': 'onedark',
+	\ 'active' : {
+	\ 'left' :[ ['mode' , 'paste'] , ['gitbranch' , 'readonly' , 'modified' , 'absolutepath' ] ] , 
+	\ 'right' : [ ['lineinfo' ] , ['percent'], [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ] } ,
+	\ 'component' : { 'charvaluehex' : '0x%B'}, 
+	\ }
 
 
+"Set color and theme
+"set t_Co=256
+"let g:lightline = {'colorscheme' : 'sonokai'}
 
+" #######################################################
+" onedark
+" #######################################################
 
-"Set lightline color
-if !has('gui_running')
-	  set t_Co=256
-  endif
+if (empty($TMUX))
+	if (has("nvim"))
+		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+	endif
+	if (has("termguicolors"))
+		set termguicolors
+	endif
+endif
+
+syntax on
+colorscheme onedark
+
+let g:onedark_terminal_italics=1
+
+"#######################################################
+" VIM SETTINGS
+" #######################################################
 
 " Search
 
@@ -38,11 +66,23 @@ set gdefault
 
 " Spell check
 
-set spelllang=en_us,de_de
+set spelllang=en_us,de
+
 
 " Visual
 
-colorscheme murphy 
+set tabstop=8
+set list lcs=tab:\ \.\│ 
 set number
+"set relativenumber
 set numberwidth=2
-highlight LineNr ctermfg=Red
+highlight LineNr ctermfg=Yellow
+set nowrap
+
+"#######################################################
+" KEYBINDS
+" #######################################################
+
+map q :q!
+map <C-W> :set wrap! <return>
+map <C-S> :setlocal spell
