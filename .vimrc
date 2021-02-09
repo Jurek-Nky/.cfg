@@ -5,9 +5,11 @@
 set nocompatible
 call plug#begin()
 
+	Plug 'yuttie/comfortable-motion.vim'	" physics based scrolling
+	Plug 'chiel92/vim-autoformat'	" autoformatation
 	Plug 'joshdick/onedark.vim'		" Theme
-	Plug 'valloric/youcompleteme'		" Completion
-	Plug 'itchyny/lightline.vim'		" Status Bar
+	Plug 'valloric/youcompleteme'	" Completion
+	Plug 'itchyny/lightline.vim'	" Status Bar
 	Plug 'tpope/vim-fugitive'		" Git Support
 
 call plug#end()
@@ -71,13 +73,25 @@ set spelllang=en_us,de
 
 " Visual
 
-set tabstop=8
-set list lcs=tab:\ \.\│ 
+set tabstop=4
+set list lcs=tab:\ \ \│
 set number
 "set relativenumber
 set numberwidth=2
 highlight LineNr ctermfg=Yellow
 set nowrap
+
+"#######################################################
+" Scrolling
+" #######################################################
+
+set so=2
+let g:comfortable_motion_friction = 60.0
+let g:comfortable_motion_air_drag = 2.0
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
 
 "#######################################################
 " KEYBINDS
@@ -86,3 +100,5 @@ set nowrap
 map q :q!
 map <C-W> :set wrap! <return>
 map <C-S> :setlocal spell
+nnoremap <F2> :%retab! <return>
+noremap <F3> :Autoformat gnu<CR>
