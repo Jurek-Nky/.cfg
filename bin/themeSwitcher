@@ -1,0 +1,15 @@
+#!/bin/bash
+THEME=`gsettings get org.gnome.desktop.interface color-scheme`
+DARK="'prefer-dark'"
+LIGHT="'prefer-light'"
+if [ "$THEME" = "$LIGHT" ]; then 
+	sed -i 's/colors: \*light/colors: \*dark/' /home/jurek/.config/alacritty/alacritty.yml
+	sed -i 's/set background=light/set background=dark/' /home/jurek/.vimrc
+	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+elif [ "$THEME" = "$DARK" ]; then
+	sed -i 's/colors: \*dark/colors: \*light/' /home/jurek/.config/alacritty/alacritty.yml
+	gsettings set org.gnome.desktop.interface color-scheme prefer-light 
+	sed -i 's/set background=dark/set background=light/' /home/jurek/.vimrc
+else
+		echo undefinded!
+fi

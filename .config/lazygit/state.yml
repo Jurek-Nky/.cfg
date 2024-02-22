@@ -1,0 +1,13 @@
+lastupdatecheck: 1680781733
+recentrepos:
+- /home/jurek
+- /home/jurek/.config/nvim/lua/user
+- /home/jurek/.config/nvim
+- /home/jurek/git/cto
+- /home/jurek/git/snakeCGP
+- /home/jurek/git/spotifyd
+startuppopupversion: 5
+customcommandshistory:
+- merge --abort
+hidecommandlog: false
+ignorewhitespaceindiffview: false

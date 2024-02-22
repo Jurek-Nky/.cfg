@@ -1,0 +1,133 @@
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+								\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+						\| PlugInstall --sync | source $MYVIMRC
+						\| endif
+
+" ###############################################################################
+" PLUGINS
+" ###############################################################################
+
+set nocompatible
+call plug#begin()
+
+Plug 'yuttie/comfortable-motion.vim'	" physics based scrolling
+Plug 'chiel92/vim-autoformat'	" autoformatation
+Plug 'morhetz/gruvbox'			" theme
+Plug 'itchyny/lightline.vim'	" Status Bar
+Plug 'tpope/vim-fugitive'		" Git Support
+Plug 'airblade/vim-gitgutter'	" git diff markers
+" Plug 'valloric/youcompleteme'	" YCM for auto code completion
+Plug 'easymotion/vim-easymotion' " jumping around
+
+call plug#end()
+
+set background=light
+let g:gruvbox_contrast_light = "hard"
+let g:gruvbox_contrast_dark = "hard"
+colorscheme gruvbox
+" ###############################################################################
+" Easymotion 
+" ###############################################################################
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap <Leader> <Plug>(easymotion-prefix)
+nmap s <Plug>(easymotion-bd-w)
+nmap <Leader>s <Plug>(easymotion-sn)
+nmap <Leader>w <Plug>(easymotion-lineanywhere)
+nmap L <plug>(easymotion-overwin-line) 
+let g:EasyMotion_startofline = 0 " keep cursor colum JK motion
+nmap <Leader>J <Plug>(easymotion-j)
+nmap <Leader>K <Plug>(easymotion-k)
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+" ###############################################################################
+" LIGHTLINE
+" ###############################################################################
+
+
+" general
+set laststatus=2
+set noshowmode
+
+" status bar components
+let g:lightline = {
+						\ 'colorscheme': 'gruvbox',
+						\ 'active' : {
+								\ 'left' :[ ['mode' , 'paste'] , ['gitbranch' , 'readonly' , 'modified' , 'absolutepath' ] ] ,
+								\ 'right' : [ ['lineinfo' ] , ['percent'], [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ] } ,
+								\ 'component' : { 'charvaluehex' : '0x%B'},
+								\ }
+
+
+"Set color and theme
+"set t_Co=256
+"let g:lightline = {'colorscheme' : 'sonokai'}
+
+
+" #######################################################
+" VIM SETTINGS
+" #######################################################
+
+" Search
+
+set ignorecase
+set smartcase
+set showmatch
+set gdefault
+
+" Spell check
+
+set spelllang=en_us,de
+
+
+" Visual
+
+set tabstop=4
+"" set list lcs=tab:\ \ \│
+
+"turn hybrid line numbers on
+set number
+" set number relativenumber
+" set nu rnu
+
+set numberwidth=1
+highlight LineNr ctermfg=Blue
+set nowrap
+set mouse=a
+
+if $TERM == 'alacritty'
+		set ttymouse=sgr
+endif
+
+"#######################################################
+" Scrolling
+" #######################################################
+
+set so=2
+let g:comfortable_motion_friction = 60.0
+let g:comfortable_motion_air_drag = 2.0
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_impulse_multiplier = 1  " Feel free to increase/decrease this value.
+nnoremap <silent> <C-j> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+nnoremap <silent> <C-k> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+
+
+"#######################################################
+" GITGUTTER
+"#######################################################
+let g:gitgutter_show_msg_on_hunk_jumping = 0
+
+"#######################################################
+" KEYBINDS
+" #######################################################
+" let mapleader = "," " map leader to space
+map q :q!
+map <C-S> :setlocal spell
+nnoremap <F2> :%retab! <return>
+noremap <F3> :Autoformat gnu<CR>
+noremap <C-S> :so /home/jurek/.vimrc <return>
+command SudoWrite :w !doas dd of=%

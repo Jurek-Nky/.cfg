@@ -1,0 +1,175 @@
+format = """
+[ ](#ffd000)\
+$os\
+$username\
+$hostname\
+$jobs\
+[ ](fg:#ffd000 bg:#ff8531)\
+$directory\
+[ ](fg:#ff8531 bg:#bc5090)\
+$git_branch\
+$git_status\
+[ ](fg:#bc5090 bg:#58508d)\
+$c\
+$cmake\
+$golang\
+$gradle\
+$java\
+$nodejs\
+$rust\
+$docker_context\
+$fill\
+[ ](fg:#58508d bg:#003f5c)\
+$time\
+$cmd_duration\
+[ ](fg:#003f5c)\
+$line_break\
+$character
+"""
+
+# Disable the blank line at the start of the prompt
+add_newline = true
+
+[fill]
+symbol = ' '
+style = 'bg:#58508d'
+
+[cmd_duration]
+min_time = 50
+format = '[   $duration](bg:#003f5c fg:#ffffff)'
+
+
+[character]
+format = '$symbol'
+success_symbol = '[  ](#ffd000)'
+error_symbol = '[ ✗](red) '
+vimcmd_visual_symbol = '[  ](purple)'
+vimcmd_symbol = '[  ](#ffd000)'
+
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[username]
+show_always = true
+style_user = "bg:#ffd000 fg:#000000"
+style_root = "bg:#ffd000 fg:#000000"
+format = '[$user ]($style)'
+disabled = false
+
+[os]
+format = "[$symbol ]($style)"
+style = "bg:#ffd000 fg:#000000"
+disabled = false
+
+[os.symbols]
+Alpine = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = "󰣚 "
+Fedora = " "
+FreeBSD = " "
+Gentoo = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mint = " "
+openSUSE = " "
+Pop = " "
+Raspbian = " "
+Redhat = "󱄛 "
+RedHatEnterprise = "󱄛 "
+SUSE = " "
+Ubuntu = " "
+Windows = "󰨡 "
+
+[directory]
+style = "fg:#000000 bg:#ff8531"
+format = "[$path]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+truncate_to_repo = false
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = "  "
+"~" = "󰋜 "
+".config" = "  "
+"git" = " "
+".git" = ". "
+# Keep in mind that the order matters. For example:
+# "Important Documents" = "  "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important  " = "  "
+
+[c]
+symbol = " "
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[docker_context]
+symbol = " "
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol $context ]($style) $path'
+
+[git_branch]
+symbol = ""
+style = "bg:#bc5090 fg:#000000"
+format = '[ $symbol $branch]($style)'
+
+[git_status]
+style = "bg:#bc5090 fg:#000000"
+format = '[ $all_status$ahead_behind ]($style)'
+
+[golang]
+symbol = " "
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[gradle]
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[java]
+symbol = " "
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[cmake]
+symbol = "△"
+style = "bg:#58508d fg:#ffffff"
+format = '[ $symbol ($version) ]($style)'
+
+[time]
+disabled = false
+time_format = "%H:%M:%S" # Hour:Minute Format
+style = "bg:#003f5c fg:#ffffff"
+format = '[   $time]($style)'
+
+[hostname]
+ssh_only = true
+format = '[ on $hostname ](bg:#ffd000 fg:#000000)'
+trim_at = '.companyname.com'
+disabled = false
+
+[jobs]
+symbol = '󱃸'
+format = '[$symbol $number ](bg:#ffd000 fg:#000000)'
+number_threshold = 1
+symbol_threshold = 1
+
