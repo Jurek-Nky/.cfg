@@ -1,0 +1,14 @@
+#!/bin/bash
+
+wd=$(pwd)
+
+# link nvim configs
+cd .config/nvim/lua
+
+unlink user
+ln -s ../../astroUserConfig/ user
+
+cd $wd
+
+stow . -t $HOME -v
+

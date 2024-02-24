@@ -1,8 +1,19 @@
 # prerequisits
-install gnu stow on your system
-# install
+- gnu stow
+- make
+- git
+# usage 
+## install dotfiles
 ```
-git clone git@github.com/jurek-nky/.cfg.git
-cd dotfiles
-stow -adopt .
+make build
+```
+
+## unlink dotfiles
+```
+make clear
+```
+
+## unlink rebuild 
+```
+make rebuild
 ```
