@@ -2,5 +2,8 @@
 	path = .config/nvim
 	url = git@github.com:AstroNvim/AstroNvim.git
 [submodule ".config/nvimUserConf"]
-	path = .config/nvimUserConf
+	path = .config/astroUserConfig
 	url = git@github.com:Jurek-Nky/astroVimConfig.git
+[submodule ".config/astroUserConfig"]
+	path = .config/astroUserConfig
+	url = git@github.com:jurek-nky/astrovimconfig.git
