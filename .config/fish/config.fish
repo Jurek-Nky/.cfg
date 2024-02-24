@@ -3,3 +3,4 @@ bind -M insert jk 'if commandline -P; commandline -f cancel; else; set fish_bind
 starship init fish | source
 fish_add_path /home/jurek/.cargo/bin/
 fish_add_path /home/jurek/bin/
+zoxide init fish --cmd cd | source
