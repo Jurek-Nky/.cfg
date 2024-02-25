@@ -1,27 +1,26 @@
-format = """
-[ ](#ffce31)\
-$os\
-[ ](fg:#ffce31 bg:#ff8531)\
+# ~/.config/starship.toml
+
+# A minimal left prompt
+format = """$character"""
+
+# move the rest of the prompt to the right
+right_format = """[ ](#ff8531)\
 $username\
 $hostname\
 $jobs\
 [ ](fg:#ff8531 bg:#ff4031)\
 $directory\
-[ ](fg:#ff4031 bg:none)\
-$fill\
-[ ](fg:#00567e bg:none)\
+[ ](fg:#ff4031 bg:#00567e)\
 $git_branch\
 $git_status\
 $git_metrics\
-$time\
 $cmd_duration\
+$os\
 [ ](fg:#00567e)\
-$line_break\
-$character
 """
 
 # Disable the blank line at the start of the prompt
-add_newline = true
+add_newline = false
 
 [fill]
 symbol = ' '
@@ -29,15 +28,18 @@ style = 'bg:none'
 
 [cmd_duration]
 min_time = 50
-format = '[   $duration](bg:#00567e fg:#ffffff)'
+show_milliseconds = true
+format = '[   $duration](bg:#00567e fg:bold #000000)'
 
 
 [character]
 format = '$symbol'
-success_symbol = '[  ](#ff8531)'
-error_symbol = '[ ✗](red) '
+success_symbol = '[  ](red)'
+error_symbol = '[  ](red) '
 vimcmd_visual_symbol = '[  ](purple)'
-vimcmd_symbol = '[  ](#ff8531)'
+vimcmd_replace_one_symbol = '[  ](blue)'
+vimcmd_replace_symbol = '[  ](blue)'
+vimcmd_symbol = '[  ](cyan)'
 
 # You can also replace your username with a neat symbol like   or disable this
 # and use the os module below
@@ -48,8 +50,8 @@ format = '[$user ]($style)'
 disabled = false
 
 [os]
-format = "[$symbol ]($style)"
-style = "bg:#ffce31 fg:#000000"
+format = "[ $symbol]($style)"
+style = "bg:#00567e fg:0000000"
 disabled = false
 
 [os.symbols]
@@ -76,10 +78,10 @@ Windows = "󰨡 "
 
 [directory]
 style = "fg:bold #000000 bg:#ff4031"
-format = "[$path]($style)"
+format = "[ $path ]($style)"
 truncation_length = -1
 truncation_symbol = "…/"
-truncate_to_repo = false
+truncate_to_repo = true
 
 # Here is how you can shorten some long paths by text replacement
 # similar to mapped_locations in Oh My Posh:
@@ -101,25 +103,19 @@ truncate_to_repo = false
 
 [git_branch]
 symbol = ""
-style = "bg:#00567e fg:#ffffff"
+style = "bg:#00567e fg:bold #000000"
 format = '[ $symbol $branch]($style)'
 only_attached = true
 
 [git_status]
-style = "bg:#00567e fg:#ffffff"
-format = '[ $all_status$ahead_behind ]($style)'
+style = "bg:#00567e fg:bold #000000"
+format = '[$all_status$ahead_behind]($style)'
 
 [git_metrics]
 added_style = "bg:#00567e fg:bold green"
 deleted_style = "bg:#00567e fg:bold red"
 format = '([+$added ]($added_style))([-$deleted ]($deleted_style))'
 disabled = false
-
-[time]
-disabled = false
-time_format = "%H:%M" # Hour:Minute Format
-style = "bg:#00567e fg:#ffffff"
-format = '[   $time]($style)'
 
 [hostname]
 ssh_only = true
@@ -128,7 +124,6 @@ disabled = false
 
 [jobs]
 symbol = '󱃸'
-format = '[$symbol $number ](bg:#ff8531 fg:#000000)'
+format = '[$symbol $number ](bg:#ff8531 fg:bold #000000)'
 number_threshold = 1
 symbol_threshold = 1
-
